@@ -1,0 +1,14 @@
+---
+- name: Install extra targets
+  ansible.builtin.command:
+    argv:
+      - rustup
+      - target
+      - add
+      - "{{ item }}"
+  environment:
+    RUSTUP_HOME: "{{ rustup_user_home }}/{{ rustup_home_suffix }}"
+    CARGO_HOME: "{{ rustup_user_home }}/{{ rustup_cargo_home_suffix }}"
+    PATH: "{{ ansible_env.PATH }}:{{ rustup_user_home }}/{{ rustup_cargo_home_suffix }}/bin"
+  loop: "{{ rustup_targets }}"
+

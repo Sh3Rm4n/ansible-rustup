@@ -36,6 +36,10 @@
       ansible.builtin.import_tasks: set-toolchain.yml
       when: rustup_exe is undefined or active_rustup_toolchain_version != rustup_default_version
 
+    - name: Install extra targets
+      ansible.builtin.import_tasks: install-target.yml
+      when: rustup_targets is iterable
+
     - name: Apply configuration (shellrc, etc.)
       ansible.builtin.import_tasks: configure.yml
 
